@@ -1,0 +1,58 @@
+<template>
+    <lightning-card icon-name="standard:events" title="Casos Interplanetarios">
+        <div lwc:if={cases} class="case_table slds-card__body slds-card__body_inner">
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th scope="col"><div class="slds-truncate" title="Asunto">Asunto</div></th>
+                        <th scope="col"><div class="slds-truncate" title="Estado">Estado</div></th>
+                        <th scope="col"><div class="slds-truncate" title="Contacto">Contacto</div></th>
+                        <th scope="col"><div class="slds-truncate" title="Email de Contacto">Email de Contacto</div></th>
+                        <th scope="col"><div class="slds-truncate" title="Planeta">Planeta</div></th>
+                        <th scope="col"><div class="slds-truncate" title="Código del Planeta">Código del Planeta</div></th>
+                        <th scope="col"><div class="slds-truncate" title="Fecha de Creación">Fecha de Creación</div></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={cases} for:item="caseItem">
+                        <tr key={caseItem.id} class="slds-hint-parent">
+                            <th data-label="Asunto" scope="row">
+                                <div class="slds-truncate" title={caseItem.subject}>
+                                    <a href="#" onclick={handleCaseClick} data-id={caseItem.id}>{caseItem.subject}</a>
+                                </div>
+                            </th>
+                            <td data-label="Estado">
+                                <div class="slds-truncate" title={caseItem.status}>{caseItem.status}</div>
+                            </td>
+                            <td data-label="Contacto">
+                                <div class="slds-truncate" title={caseItem.contactName}>
+                                    <template if:true={caseItem.contactUrl}>
+                                        <a href={caseItem.contactUrl} target="_blank">{caseItem.contactName}</a>
+                                    </template>
+                                </div>
+                            </td>
+                            <td data-label="Email de Contacto">
+                                <div class="slds-truncate" title={caseItem.contactEmail}>{caseItem.contactEmail}</div>
+                            </td>
+                            <td data-label="Planeta">
+                                <div class="slds-truncate" title={caseItem.planet}>{caseItem.planet}</div>
+                            </td>
+                            <td data-label="Código del Planeta">
+                                <div class="slds-truncate" title={caseItem.planetCode}>{caseItem.planetCode}</div>
+                            </td>
+                            <td data-label="Fecha de Creación">
+                                <div class="slds-truncate" title={caseItem.createdDate}>{caseItem.createdDate}</div>
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>            
+        </div>
+        <div slot="footer">
+            <p>© McKinsey & Company - Technical Test</p>
+        </div>
+    </lightning-card>
+    <template lwc:if={isModalOpen}>
+        <c-case-data-modal record={record} field-set={fieldSetName} onclose={handleCloseModal}></c-case-data-modal>
+    </template>
+</template>
